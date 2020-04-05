@@ -4,14 +4,16 @@ using DataAccess.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AtmoContext))]
-    partial class AtmoContextModelSnapshot : ModelSnapshot
+    [Migration("20200405200522_archiveTickets")]
+    partial class archiveTickets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,7 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime>("CreationDate");
 
-                    b.Property<DateTime?>("EditDate");
+                    b.Property<DateTime>("EditDate");
 
                     b.HasKey("Id");
 

@@ -1,5 +1,8 @@
 ﻿using DataAccess.Configuration;
+using DataAccess.Migrations;
 using DataAccess.Repository;
+using Logic.Services;
+using Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +26,8 @@ namespace AtmoWebApi
 		{
 			services.AddDbContext<AtmoContext>(options => options.UseSqlServer(
 				Configuration["Data:AtmoWebApi:ConnectionString"]));
-			services.AddScoped<AtmoContext>();
+			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+			services.AddTransient<ITicketService, TicketService>();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}
 
@@ -42,6 +46,7 @@ namespace AtmoWebApi
 
 			app.UseHttpsRedirection();
 			app.UseMvc();
+			SeedData.DoSeed(app);
 		}
 	}
 }

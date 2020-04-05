@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DataAccess.Repository
 {
-	public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+	public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 	{
 		internal readonly DataAccess.Configuration.AtmoContext _context;
 		internal readonly DbSet<TEntity> DbSet;
@@ -41,9 +42,9 @@ namespace DataAccess.Repository
 			return await DbSet.FindAsync(id);
 		}
 
-		public async Task<List<TEntity>> GetAll()
+		public IQueryable<TEntity> GetAll()
 		{
-			return await DbSet.ToListAsync();
+			return DbSet.AsQueryable();
 		}
 
 		public async Task<TEntity> Update(TEntity entity)
