@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccess.Models
 {
-	public class BaseClass
+	public abstract class BaseClass
 	{
 		public int Id { get; set; }
 		public DateTime CreationDate { get; set; }
