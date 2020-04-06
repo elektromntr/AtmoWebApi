@@ -18,20 +18,20 @@ namespace DataAccess.Migrations
 				context.Database.Migrate();
 				if (!context.Tickets.Any())
 				{
-					for (var i = 0; i < 15; i++)
+					for (var i = 1; i < 15; i++)
 					{
 						context.Tickets.Add(
 							new Models.Ticket
 							{
 								CreationDate = DateTime.Now.AddDays(-i),
-								Content = $"Test Ticket number {i + 1}"
+								Content = $"Test Ticket number {i}"
 							});
 
 						context.Tickets.Add(
 							new Models.Ticket
 							{
 								CreationDate = DateTime.Now.AddMonths(-i),
-								Content = $"Test archived Ticket number {i + 1}",
+								Content = $"Test archived Ticket number {i}",
 								Archived = true,
 							});
 					}
