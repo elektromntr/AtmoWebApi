@@ -1,14 +1,17 @@
-﻿using DataAccess.Models;
+﻿using DataAccess.Migrations;
+using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.Configuration
 {
 	public class AtmoContext : DbContext
 	{
 		public AtmoContext(DbContextOptions<AtmoContext> options) : base(options) { }
+		
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.DoSeed();
+		}
 
 		public DbSet<Ticket> Tickets { get; set; }
 	}

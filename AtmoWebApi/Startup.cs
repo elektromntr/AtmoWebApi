@@ -46,7 +46,6 @@ namespace AtmoWebApi
 
 			app.UseHttpsRedirection();
 			app.UseMvc();
-			SeedData.DoSeed(app);
 		}
 	}
 }
