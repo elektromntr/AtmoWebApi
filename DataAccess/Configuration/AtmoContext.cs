@@ -14,5 +14,6 @@ namespace DataAccess.Configuration
 		}
 
 		public DbSet<Ticket> Tickets { get; set; }
+		public DbSet<TicketLog> TicketLogs { get; set; }
 	}
 }

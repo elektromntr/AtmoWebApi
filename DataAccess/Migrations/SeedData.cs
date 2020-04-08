@@ -10,6 +10,7 @@ namespace DataAccess.Migrations
 		public static void DoSeed(this ModelBuilder modelBuilder)
 		{
 			var tickets = new List<Ticket>();
+			var ticketLogs = new List<TicketLog>();
 
 			for (var i = 1; i < 15; i++)
 			{
@@ -21,6 +22,14 @@ namespace DataAccess.Migrations
 						Content = $"Test Ticket number {i}",
 						Archived = false,
 						EditDate = null,
+					});
+				ticketLogs.Add(
+					new TicketLog
+					{
+						Id = i,
+						CreationDate = DateTime.Now.AddDays(-i),
+						TicketId = i,
+						Action
 					});
 
 				var z = 15+i;
