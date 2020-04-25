@@ -23,15 +23,7 @@ namespace DataAccess.Migrations
 						Archived = false,
 						EditDate = null,
 					});
-				ticketLogs.Add(
-					new TicketLog
-					{
-						Id = i,
-						CreationDate = DateTime.Now.AddDays(-i),
-						TicketId = i,
-						Action
-					});
-
+				
 				var z = 15+i;
 				tickets.Add(
 					new Models.Ticket
