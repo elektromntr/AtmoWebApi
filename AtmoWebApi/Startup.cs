@@ -46,7 +46,6 @@ namespace AtmoWebApi
 			app.UseRouting();
 			app.UseEndpoints(endpoints => endpoints.MapControllers());
 			app.UseHttpsRedirection();
-			SeedData.DoSeed(app);
 		}
 	}
 }

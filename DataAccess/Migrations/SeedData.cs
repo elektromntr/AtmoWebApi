@@ -1,43 +1,49 @@
-﻿using DataAccess.Configuration;
-using Microsoft.AspNetCore.Builder;
+﻿using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace DataAccess.Migrations
 {
-	public static class SeedData
+	public static class ModelBuilderExtensions
 	{
-		public static void DoSeed(IApplicationBuilder app)
+		public static void DoSeed(this ModelBuilder modelBuilder)
 		{
-			using (var serviceScope = app.ApplicationServices.CreateScope())
+			var tickets = new List<Ticket>();
+			var ticketLogs = new List<TicketLog>();
+
+			for (var i = 1; i < 15; i++)
 			{
-				var context = serviceScope.ServiceProvider.GetService<AtmoContext>();
-
-				context.Database.Migrate();
-				if (!context.Tickets.Any())
-				{
-					for (var i = 1; i < 15; i++)
+				tickets.Add(
+					new Models.Ticket
 					{
-						context.Tickets.Add(
-							new Models.Ticket
-							{
-								CreationDate = DateTime.Now.AddDays(-i),
-								Content = $"Test Ticket number {i}"
-							});
-
-						context.Tickets.Add(
-							new Models.Ticket
-							{
-								CreationDate = DateTime.Now.AddMonths(-i),
-								Content = $"Test archived Ticket number {i}",
-								Archived = true,
-							});
-					}
-					context.SaveChanges();
-				}
+						Id = i,
+						CreationDate = DateTime.Now.AddDays(-i),
+						Content = $"Test Ticket number {i}",
+						Archived = false,
+						EditDate = null,
+					});
+				
+				var z = 15+i;
+				tickets.Add(
+					new Models.Ticket
+					{
+						Id = z,
+						CreationDate = DateTime.Now.AddMonths(-i),
+						Content = $"Test archived Ticket number {i}",
+						Archived = true,
+						EditDate = null,
+					});
 			}
+			modelBuilder.Entity<Ticket>().HasData(new Ticket
+			{
+				Id = 69,
+				Archived = false,
+				Content = "69",
+				CreationDate = DateTime.Now,
+				EditDate = null,
+			});
+			modelBuilder.Entity<Ticket>().HasData(tickets);
 		}
 	}
 }
