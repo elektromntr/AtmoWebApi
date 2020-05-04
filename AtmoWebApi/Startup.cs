@@ -28,6 +28,7 @@ namespace AtmoWebApi
 				Configuration["Data:AtmoWebApi:ConnectionString"]));
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			services.AddTransient<ITicketService, TicketService>();
+			services.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +43,8 @@ namespace AtmoWebApi
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
-
+			app.UseRouting();
+			app.UseEndpoints(endpoints => endpoints.MapControllers());
 			app.UseHttpsRedirection();
 			SeedData.DoSeed(app);
 		}
