@@ -19,7 +19,11 @@ namespace Logic.Services
 
 		public async Task<IList<Ticket>> GetAll() => await _ticketRepository.GetAll().Where(t => !t.Archived).ToListAsync();
 
-		public async Task<Ticket> Create(Ticket ticket) => await _ticketRepository.Add(ticket);
+		public async Task<Ticket> Create(Ticket ticket)
+		{
+			ticket.CreationDate = System.DateTime.Now;
+			return await _ticketRepository.Add(ticket);
+		}
 
 		public async Task<Ticket> Update(Ticket ticket) => await _ticketRepository.Update(ticket);
 	}

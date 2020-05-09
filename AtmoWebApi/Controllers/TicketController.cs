@@ -27,7 +27,7 @@ namespace AtmoWebApi.Controllers
 		public async Task<IActionResult> Create([FromBody] Ticket ticket)
 		{
 			var result = await _ticketService.Create(ticket);
-			return Ok();
+			return Ok(result);
 		}
     }
 }
